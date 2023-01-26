@@ -1,0 +1,87 @@
+
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 454px;
+    height: 281px;
+  
+  }
+  .card__description .card__title{
+    padding-right: 45px;
+    font-weight: 400;  
+    margin-top: 0
+  }
+  .ant-typography h4 {
+    margin-bottom: 0;
+  }
+  
+  .card__photo{
+    width: 183px;
+    height: 281px;
+    object-fit: none;
+  }
+  
+  .card__date, .card__plot{
+    font-weight: 400;
+    font-size: 12px;
+  }
+  
+  .card__plot{
+    height: 129px;
+   
+    margin-top: 7px;
+  
+  }
+  
+  .card__info{
+    padding: 12px 0 0 20px;
+  }
+  .card__description{
+    height: 235px; 
+    overflow: hidden;
+  
+  }
+  
+  .card__date{
+    margin-bottom: 7px;
+  }
+  
+  .card__genres {
+    display: flex;
+    gap:10px;
+    flex-wrap: wrap;
+    max-height: 24px;
+    overflow: hidden;
+   
+  }
+  
+  kbd{
+  color: black;
+  }
+  
+  .card__stars{
+    width: 239px;
+    height: 46px;
+    font-size: 16px;
+  }
+  .card__mark{
+    position: absolute;
+    right: 9px;
+    top:12px;
+    height: 30px;
+    min-width: 30px;
+    text-align: center;
+    border: 2px solid;
+    border-radius: 50%;
+  }
+  
+  p{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+  }
+  
+  
