@@ -9,17 +9,20 @@ export default class Search extends React.Component {
   };
 
   onLabelChange = (e) => {
-    this.setState({
-      label: e.target.value,
+    this.setState(() => {
+      return {
+        label: e.target.value,
+      };
     });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    e.currentTarget.value = '';
     this.props.checkLabel(this.state.label);
-    this.setState({
-      label: '',
+    this.setState(() => {
+      return {
+        label: '',
+      };
     });
   };
 
