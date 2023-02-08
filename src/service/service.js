@@ -18,10 +18,16 @@ export default class Service {
   };
 
   getRequestFilms = async (valueSearch, pageNumber) => {
-    //значение из input, номер страницы
     const url = `${baseURL}search/movie?api_key=${apiKey}&include_adult=false&query=${valueSearch}&page=${pageNumber}`;
     const body = await this.getResource(url);
 
     return body;
+  };
+
+  getFilmGenre = async () => {
+    const url = `${baseURL}genre/movie/list?api_key=${apiKey}&language=en-US`;
+    const body = await this.getResource(url);
+
+    return body.genres;
   };
 }

@@ -1,43 +1,22 @@
 import React from 'react';
+import { debounce } from 'lodash';
 
-import Card from '../cards';
 import './search.css';
 
-export default class Search extends React.Component {
-  state = {
-    label: '',
-  };
+const Search = ({ checkLabel }) => {
+  const onLabelChange = debounce((value) => {
+    checkLabel(value);
+  }, 500);
 
-  onLabelChange = (e) => {
-    this.setState(() => {
-      return {
-        label: e.target.value,
-      };
-    });
-  };
+  return (
+    <input
+      className="search"
+      placeholder="Type to search"
+      type="text"
+      onChange={(e) => onLabelChange(e.target.value)}
+      autoFocus
+    />
+  );
+};
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    this.props.checkLabel(this.state.label);
-    this.setState(() => {
-      return {
-        label: '',
-      };
-    });
-  };
-
-  render() {
-    return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          className="search"
-          placeholder="Type to search"
-          type="text"
-          onChange={this.onLabelChange}
-          value={this.state.label}
-          autoFocus
-        ></input>
-      </form>
-    );
-  }
-}
+export default Search;

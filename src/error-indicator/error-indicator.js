@@ -7,7 +7,7 @@ const ErrorIndicator = () => {
       <Online>
         <Alert
           message="BOOM!"
-          description="We are so sorry for this terrible error! We'll soon fix that!"
+          description="We apologize, but we can't find anything on this query. Please, update the page and try again!"
           type="error"
           showIcon
         />

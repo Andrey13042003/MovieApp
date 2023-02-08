@@ -19,8 +19,10 @@ export default class App extends React.Component {
   };
 
   onError = () => {
-    this.setState({
-      error: true,
+    this.setState(() => {
+      return {
+        error: true,
+      };
     });
   };
 
