@@ -1,0 +1,20 @@
+.tabs {
+    display: flex;
+    justify-content: center;
+}
+
+.vid, .rated {
+    font-size: 14px;
+    padding: 10px 60px;
+    cursor: pointer;
+    opacity: 0.6;
+    background: white;
+    border: 0;
+    outline: 0;
+}
+
+.search_button {
+    color: deepskyblue;
+    border-bottom: 2px solid deepskyblue;
+    opacity: 1;
+}

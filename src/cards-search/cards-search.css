@@ -3,14 +3,18 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    width: 454px;
+    width: 475px;
     height: 281px;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, .1);
 }
 
 .card__description .card__title{
-  padding-right: 45px;
   font-weight: 400;  
   margin-top: 0
+}
+
+.card__title {
+  width: 226px;
 }
 
 .card__photo{
@@ -31,7 +35,7 @@
 }
 .card__description{
   padding: 12px 0 0 20px;
-  height: 235px; 
+  height: inherit; 
   overflow: hidden;
 }
 
@@ -42,7 +46,6 @@
 }
 
 .text {
-  height: 135px;
   width: 251px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -55,6 +58,27 @@
 
 h4 {
   margin-bottom: 0;
+}
+
+.stars {
+  display: flex;
+}
+
+.stars > .ant-rate-star {
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.card__mark{
+  position: absolute;
+  right: 9px;
+  top:12px;
+  height: 30px;
+  min-width: 30px;
+  text-align: center;
+  border: 2px solid;
+  border-radius: 50%;
+
 }
   
 

@@ -2,12 +2,18 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px; 
+    gap: 30px; 
 }
 
 .spiner {
     font-size: 30px;
     display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.page {
+    display: flex;
     justify-content: center;
     align-items: center;
 }

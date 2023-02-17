@@ -30,4 +30,35 @@ export default class Service {
 
     return body.genres;
   };
+
+  getGuestSessionId = async () => {
+    const url = `${baseURL}authentication/guest_session/new?api_key=${apiKey}`;
+    const body = await this.getResource(url);
+
+    return body;
+  };
+
+  getFilmRate = async (sessionId) => {
+    const url = `${baseURL}guest_session/${sessionId}/rated/movies?api_key=${apiKey}&language=en-US&sort_by=created_at.asc`;
+    const body = await this.getResource(url);
+
+    return body;
+  };
+
+  postFilmRate = async (movieId, sessionId, rating) => {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=${apiKey}&guest_session_id=${sessionId}`;
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        value: rating,
+      }),
+    }).catch((err) => {
+      throw new Error('unsuccussed fetch request', err.message);
+    });
+  };
 }
