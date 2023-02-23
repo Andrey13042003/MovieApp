@@ -1,9 +1,10 @@
 .tabs {
     display: flex;
     justify-content: center;
+    margin-bottom: 15px;
 }
 
-.vid, .rated {
+.btn {
     font-size: 14px;
     padding: 10px 60px;
     cursor: pointer;
@@ -13,8 +14,9 @@
     outline: 0;
 }
 
-.search_button {
+.btn:focus {
     color: deepskyblue;
     border-bottom: 2px solid deepskyblue;
     opacity: 1;
 }
+ 

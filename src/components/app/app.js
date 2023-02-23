@@ -1,17 +1,17 @@
 import React from 'react';
 
 import Search from '../search';
-import Service from '../service';
+import Service from '../../service';
 import ErrorIndicator from '../error-indicator';
 import TabGroup from '../tabs';
 import ListCardsSearch from '../list-cards-search';
-import { Provider } from '../service-context';
+import { Provider } from '../../context';
 
 export default class App extends React.Component {
   service = new Service();
 
   state = {
-    lbl: '',
+    lbl: 'popular films',
     rated: false,
     allGenres: null,
   };
@@ -53,18 +53,16 @@ export default class App extends React.Component {
   };
 
   render() {
+    const { allGenres, rated, lbl } = this.state;
     if (this.state.error) {
       return <ErrorIndicator />;
     }
 
     return (
-      <Provider value={this.state.allGenres}>
+      <Provider value={allGenres}>
         <TabGroup rated={this.ratedIsTrue} search={this.ratedIsFalse} />
-        {!this.state.rated && <Search checkLabel={this.checkLabel} />}
-        {this.state.lbl != '' && !this.state.rated && (
-          <ListCardsSearch lbl={this.state.lbl} checkLabel={this.checkLabel} rated={this.state.rated} />
-        )}
-        {this.state.rated && <ListCardsSearch rated={this.state.rated} />}
+        <Search checkLabel={this.checkLabel} rated={rated} />
+        {lbl && <ListCardsSearch lbl={lbl} checkLabel={this.checkLabel} rated={rated} />}
       </Provider>
     );
   }

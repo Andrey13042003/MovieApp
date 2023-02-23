@@ -1,7 +1,7 @@
 import React from 'react';
 import { Rate as Stars } from 'antd';
 
-import Service from '../service';
+import Service from '../../service';
 
 import './rate.css';
 
@@ -11,10 +11,6 @@ export default class Rate extends React.Component {
   state = {
     guest_session_id: null,
   };
-
-  componentDidCatch(err, info) {
-    console.log(info);
-  }
 
   componentDidMount() {
     this.service.getGuestSessionId().then((res) => {
@@ -27,10 +23,12 @@ export default class Rate extends React.Component {
   };
 
   render() {
-    if (this.state.guest_session_id && this.props.data.stars > 0) {
-      localStorage.setItem(this.props.movieId, JSON.stringify(this.props.data));
-      this.postRequest(); //пост запрос, меняем рейтинг
+    const { guest_session_id } = this.state;
+    const { data, movieId, ratedCards, changeStars } = this.props;
+    if (guest_session_id && data.stars > 0) {
+      localStorage.setItem(movieId, JSON.stringify(data));
+      this.postRequest();
     }
-    return <Stars className="stars" defaultValue={0} count={10} onChange={this.props.changeStars} />;
+    return <Stars className="stars" defaultValue={ratedCards ? ratedCards : 0} count={10} onChange={changeStars} />;
   }
 }

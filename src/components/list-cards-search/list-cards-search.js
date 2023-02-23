@@ -2,8 +2,8 @@ import React from 'react';
 import { Space, Spin, Pagination } from 'antd';
 
 import Card from '../cards-search';
-import Service from '../service';
-import { Consumer } from '../service-context';
+import Service from '../../service';
+import { Consumer } from '../../context';
 import ErrorIndicator from '../error-indicator';
 
 import './list-cards-search.css';
@@ -25,17 +25,25 @@ export default class ListCardsSearch extends React.Component {
 
   componentDidMount() {
     {
-      !this.props.rated ? this.getRequestFilmFunc() : this.setState(() => ({ loading: true }));
+      if (!this.props.rated && this.props.lbl != 'popular films') {
+        this.getRequestFilmFunc();
+      } else if (this.props.lbl == 'popular films') {
+        this.getPopularFilmFunc();
+      } else {
+        this.setState(() => ({ loading: true }));
+      }
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!this.props.rated && prevProps.lbl != this.props.lbl && prevState.searchPage == this.state.searchPage) {
-      this.setState(() => ({ searchPage: 1 }));
-    }
-    if (!this.props.rated && (prevProps.lbl != this.props.lbl || prevState.searchPage != this.state.searchPage)) {
+    if (this.props.lbl == 'popular films') {
+      this.getPopularFilmFunc();
+    } else if (prevProps.lbl != this.props.lbl || prevState.searchPage != this.state.searchPage) {
       this.setState(() => ({ loading: true }));
       this.getRequestFilmFunc();
+    }
+    if (prevProps.lbl != this.props.lbl && prevState.searchPage == this.state.searchPage) {
+      this.setState(() => ({ searchPage: 1 }));
     }
     if (this.state.loading && this.props.rated) {
       setTimeout(() => {
@@ -55,6 +63,7 @@ export default class ListCardsSearch extends React.Component {
           return {
             movieRes: res.results,
             loading: false,
+            hasError: false,
             total_pages: res.total_pages,
           };
         });
@@ -64,8 +73,20 @@ export default class ListCardsSearch extends React.Component {
       });
   };
 
+  getPopularFilmFunc = () => {
+    this.service.getPopularFilms(this.state.searchPage).then((res) => {
+      this.setState(() => {
+        return {
+          movieRes: res.results,
+          loading: false,
+          total_pages: 5000,
+        };
+      });
+    });
+  };
+
   render() {
-    const { movieRes, loading } = this.state;
+    const { movieRes, loading, hasError } = this.state;
     const { lbl, rated } = this.props;
     let elements = [];
 
@@ -77,7 +98,7 @@ export default class ListCardsSearch extends React.Component {
       this.setState({ ratedPage: page });
     };
 
-    if (this.state.hasError) {
+    if (hasError) {
       return <ErrorIndicator />;
     }
 
@@ -102,6 +123,7 @@ export default class ListCardsSearch extends React.Component {
                   page={this.state.searchPage}
                   rated={this.props.rated}
                   allGenres={allGenres}
+                  item={item}
                 />
               );
             }}
@@ -119,17 +141,25 @@ export default class ListCardsSearch extends React.Component {
         }
 
         let localData = JSON.parse(localStorage.getItem(key));
-        let oneCard = (
-          <Consumer key={key}>
-            {(allGenres) => {
-              return (
-                <Card rated={this.props.rated} localData={localData} key={key} keyOfCard={key} allGenres={allGenres} />
-              );
-            }}
-          </Consumer>
-        );
-        if (elements.length < 20) {
-          elements.push(oneCard);
+        if (localData.stars > 0) {
+          let oneCard = (
+            <Consumer key={key}>
+              {(allGenres) => {
+                return (
+                  <Card
+                    rated={this.props.rated}
+                    localData={localData}
+                    key={key}
+                    keyOfCard={key}
+                    allGenres={allGenres}
+                  />
+                );
+              }}
+            </Consumer>
+          );
+          if (elements.length < 20) {
+            elements.push(oneCard);
+          }
         }
       }
     }
