@@ -62,6 +62,8 @@ h4 {
 
 .stars {
   display: flex;
+  position: absolute;
+  bottom: -7%;
 }
 
 .stars > .ant-rate-star {

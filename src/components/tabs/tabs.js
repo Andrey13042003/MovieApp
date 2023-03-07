@@ -1,30 +1,30 @@
 import React from 'react';
 
-import Rate from '../rate';
-
 import './tabs.css';
 
 export default class TabGroup extends React.Component {
-  rate = new Rate();
+  activeSearch = true;
+  activeRated = false;
+
+  changeData = (searchValue, ratedValue, func) => {
+    this.activeSearch = searchValue;
+    this.activeRated = ratedValue;
+    func();
+  };
 
   render() {
     return (
       <>
         <div className="tabs">
           <button
-            className="btn"
-            onClick={() => {
-              this.props.search();
-            }}
-            autoFocus
+            className={this.activeSearch ? 'activeBtn' : 'btn'}
+            onClick={() => this.changeData(true, false, this.props.search)}
           >
             Search
           </button>
           <button
-            className="btn"
-            onClick={() => {
-              this.props.rated();
-            }}
+            className={this.activeRated ? 'activeBtn' : 'btn'}
+            onClick={() => this.changeData(false, true, this.props.rated)}
           >
             Rated
           </button>

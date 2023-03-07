@@ -5,14 +5,8 @@ import './search.css';
 
 export default class Search extends React.Component {
   state = {
-    lbl: 'popular films',
+    lbl: '',
   };
-
-  componentDidMount() {
-    if (this.props.rated) {
-      this.setState(() => ({ lbl: '' })); //нужно чтобы после перехода из rated в search инпут очищался, иначе в строке будет popular films
-    }
-  }
 
   onLabelChange = debounce((value) => {
     this.props.checkLabel(value);

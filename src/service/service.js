@@ -61,4 +61,15 @@ export default class Service {
       throw new Error('unsuccussed fetch request', err.message);
     });
   };
+
+  deleteRateMovie = async (id, guestSessionToken) => {
+    const url = `${baseURL}movie/${id}/rating?api_key=${apiKey}&guest_session_id=${guestSessionToken}`;
+    const headers = {
+      'Content-Type': 'application/json;charset=utf-8',
+    };
+    await fetch(url, {
+      method: 'DELETE',
+      headers,
+    });
+  };
 }

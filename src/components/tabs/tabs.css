@@ -7,16 +7,19 @@
 .btn {
     font-size: 14px;
     padding: 10px 60px;
-    cursor: pointer;
+    cursor: pointer; 
     opacity: 0.6;
     background: white;
     border: 0;
     outline: 0;
 }
 
-.btn:focus {
+.activeBtn {
     color: deepskyblue;
+    font-size: 14px;
+    background: white;
+    padding: 10px 60px;
+    border: 0;
     border-bottom: 2px solid deepskyblue;
     opacity: 1;
 }
- 
